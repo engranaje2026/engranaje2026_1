@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engranaje 2026 – Los Ojos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #080c12;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 60px 20px 80px;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* ========== CONTENEDOR DE LOS OJOS MISTERIOSOS ========== */
+        .ojos-fondo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(92vw, 92vh);
+            height: min(40vw, 40vh);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.22;
+            filter: drop-shadow(0 0 50px rgba(15, 60, 150, 0.4));
+            animation: parpadeoFondo 6s infinite ease-in-out;
+        }
+
+        @keyframes parpadeoFondo {
+            0%, 88%, 100% { opacity: 0.22; }
+            94% { opacity: 0.02; }
+        }
+
+        .ojo-fondo {
+            flex: 1;
+            aspect-ratio: 2.2 / 1;
+            max-width: 46%;
+            position: relative;
+        }
+
+        /* Forma rasgada y acechante (Párpados entrecerrados) */
+        .ojo-fondo .eye-shape {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(6,8,12,0.98) 0%, rgba(2,3,6,0.98) 80%);
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.98), 0 0 40px rgba(10,50,130,0.25);
+            overflow: hidden;
+            clip-path: polygon(0% 50%, 15% 20%, 50% 12%, 85% 25%, 100% 50%, 85% 78%, 50% 88%, 15% 80%);
+            border-radius: 40% 40% 40% 40%;
+        }
+
+        .ojo-fondo .sclera {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(8, 12, 20, 0.9) 0%, rgba(2, 3, 5, 0.98) 85%);
+        }
+
+        /* Sombra del párpado superior */
+        .ojo-fondo .sombras-parpado {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(2,4,8,0.9) 0%, rgba(2,4,8,0.3) 35%, transparent 60%, rgba(2,4,8,0.7) 100%);
+            z-index: 3;
+        }
+
+        .ojo-fondo .iris-container {
+            position: absolute;
+            left: 50%;
+            top: 52%;
+            width: 42%;
+            aspect-ratio: 1 / 1;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 35px 8px rgba(30,110,220,0.5), 
+                        0 0 70px 20px rgba(15,60,150,0.3),
+                        inset 0 0 15px rgba(0,0,0,0.9);
+        }
+
+        .ojo-fondo .iris {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, #000205 0%, #000205 18%, transparent 19%),
+                        repeating-conic-gradient(from 0deg, rgba(255,255,255,0.03) 0deg 2deg, rgba(0,0,0,0.12) 2deg 4deg),
+                        radial-gradient(circle at 50% 50%, #4a9dec 0%, #175bb8 25%, #082d6e 50%, #030f28 75%, #000 100%);
+            animation: irisRotateFondo 30s linear infinite;
+        }
+
+        @keyframes irisRotateFondo {
+            0%   { filter: hue-rotate(0deg) brightness(1); }
+            50%  { filter: hue-rotate(8deg) brightness(1.1); }
+            100% { filter: hue-rotate(0deg) brightness(1); }
+        }
+
+        .ojo-fondo .pupil {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 32%;
+            aspect-ratio: 1 / 1;
+            transform: translate(-50%, -50%);
+            background: #000000;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.95);
+        }
+
+        .ojo-fondo .highlight {
+            position: absolute;
+            width: 14%;
+            height: 14%;
+            top: 24%;
+            left: 28%;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            filter: blur(1.5px);
+            opacity: 0.7;
+        }
+
+        .ojo-fondo .vein {
+            position: absolute;
+            background: rgba(120,30,30,0.15);
+            filter: blur(1px);
+            border-radius: 50%;
+        }
+
+        /* ========== CONTENEDOR PRINCIPAL ========== */
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 680px;
+            width: 100%;
+            margin: auto;
+        }
+        .gear {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 38px;
+            animation: spin 18s linear infinite;
+            filter: drop-shadow(0 0 18px rgba(30, 110, 220, 0.7)) drop-shadow(0 0 45px rgba(15, 60, 150, 0.5));
+        }
+        .gear svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .countdown {
+            color: #3a7ab8;
+            font-size: 4.2rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            background: rgba(6, 18, 50, 0.25);
+            padding: 18px 28px;
+            border-radius: 18px;
+            border: 1px solid rgba(20, 60, 140, 0.35);
+            display: inline-block;
+            margin-bottom: 40px;
+            font-variant-numeric: tabular-nums;
+            box-shadow: 0 0 30px rgba(8, 35, 120, 0.15), inset 0 1px 0 rgba(60, 120, 200, 0.08);
+        }
+        .frase {
+            color: #b8c8dd;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 20px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+        .frase strong {
+            color: #3a7ab8;
+            font-weight: 500;
+        }
+        .instruccion {
+            color: #8aa0b8;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin: 10px 0 16px;
+            text-align: justify;
+            text-align-last: center;
+        }
+        .correo {
+            color: #3a7ab8;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            background: rgba(10, 35, 90, 0.12);
+            padding: 12px 30px;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid rgba(20, 60, 140, 0.3);
+            margin-top: 14px;
+        }
+        .footer {
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.07);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        @media (max-width: 500px) {
+            body { padding: 40px 16px 60px; }
+            .ojos-fondo {
+                width: 95vw;
+                height: 45vw;
+                gap: 4%;
+            }
+            .gear { width: 120px; height: 120px; }
+            .countdown { font-size: 2.8rem; padding: 14px 18px; }
+            .frase { font-size: 1.15rem; padding: 0 6px; }
+            .instruccion { font-size: 0.95rem; }
+            .correo { font-size: 1.1rem; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== DOS OJOS MISTERIOSOS Y RASGADOS ========== -->
+    <div class="ojos-fondo" id="ojosFondo">
+        <div class="ojo-fondo">
+            <div class="eye-shape">
+                <div class="sclera"></div>
+                <div class="sombras-parpado"></div>
+                <div class="vein" style="width:45%; height:2px; top:36%; left:8%; transform:rotate(8deg);"></div>
+                <div class="vein" style="width:38%; height:1.5px; top:65%; left:52%; transform:rotate(-12deg);"></div>
+                <div class="iris-container">
+                    <div class="iris"></div>
+                    <div class="pupil"></div>
+                    <div class="highlight"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ojo-fondo">
+            <div class="eye-shape">
+                <div class="sclera"></div>
+                <div class="sombras-parpado"></div>
+                <div class="vein" style="width:45%; height:2px; top:36%; left:8%; transform:rotate(8deg);"></div>
+                <div class="vein" style="width:38%; height:1.5px; top:65%; left:52%; transform:rotate(-12deg);"></div>
+                <div class="iris-container">
+                    <div class="iris"></div>
+                    <div class="pupil"></div>
+                    <div class="highlight"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CONTENEDOR PRINCIPAL ========== -->
+    <div class="container" id="contenidoPrincipal">
+        <div class="gear">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="metalEngrane" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#72a8e0" />
+                        <stop offset="25%" stop-color="#346cb0" />
+                        <stop offset="60%" stop-color="#143c78" />
+                        <stop offset="100%" stop-color="#091c3d" />
+                    </linearGradient>
+
+                    <linearGradient id="biselMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#a8d0f8" stop-opacity="0.8" />
+                        <stop offset="50%" stop-color="#1e5296" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#051026" stop-opacity="0.9" />
+                    </linearGradient>
+
+                    <radialGradient id="sombraCentro" cx="50%" cy="50%" r="50%">
+                        <stop offset="70%" stop-color="#040914" stop-opacity="0" />
+                        <stop offset="100%" stop-color="#02040a" stop-opacity="0.8" />
+                    </radialGradient>
+                </defs>
+
+                <g fill="url(#metalEngrane)" stroke="#091c3d" stroke-width="0.8">
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(30 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(60 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(90 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(120 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(150 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(180 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(210 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(240 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(270 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(300 50 50)" />
+                    <path d="M44 4 L56 4 L54 18 L46 18 Z" transform="rotate(330 50 50)" />
+
+                    <circle cx="50" cy="50" r="36" />
+                </g>
+
+                <circle cx="50" cy="50" r="36" fill="none" stroke="url(#biselMetal)" stroke-width="1.2" />
+
+                <g fill="#080c12" stroke="url(#biselMetal)" stroke-width="0.8">
+                    <path d="M 50 22 A 28 28 0 0 1 78 50 L 68 50 A 18 18 0 0 0 50 32 Z" />
+                    <path d="M 50 22 A 28 28 0 0 1 78 50 L 68 50 A 18 18 0 0 0 50 32 Z" transform="rotate(90 50 50)" />
+                    <path d="M 50 22 A 28 28 0 0 1 78 50 L 68 50 A 18 18 0 0 0 50 32 Z" transform="rotate(180 50 50)" />
+                    <path d="M 50 22 A 28 28 0 0 1 78 50 L 68 50 A 18 18 0 0 0 50 32 Z" transform="rotate(270 50 50)" />
+                </g>
+
+                <circle cx="50" cy="50" r="18" fill="url(#metalEngrane)" stroke="#091c3d" stroke-width="0.8" />
+                <circle cx="50" cy="50" r="18" fill="none" stroke="url(#biselMetal)" stroke-width="1" />
+
+                <g fill="#080c12" stroke="url(#biselMetal)" stroke-width="0.6">
+                    <circle cx="50" cy="50" r="8" />
+                    <rect x="48.5" y="40" width="3" height="4" rx="0.5" />
+                </g>
+
+                <circle cx="50" cy="50" r="8" fill="url(#sombraCentro)" />
+                <circle cx="47" cy="47" r="1.5" fill="rgba(255,255,255,0.5)" />
+            </svg>
+        </div>
+
+        <div class="countdown" id="countdown">-- : -- : -- : --</div>
+
+        <div class="frase">
+            <strong>"Un engrane no mueve una máquina,</strong><br />
+            pero una máquina se mueve mejor<br />
+            con el engrane correcto."
+        </div>
+
+        <div class="instruccion">
+            Marce... para bien o para mal los tiempos han llegado: los rumores, los encuentros, los cuchicheos, las invitaciones y los grupos
+            que buscan formarse para competir por atraer el interés de los compañeros mediante la amistad, popularidad, proyectos, promesas
+            o mentiras. Cualquier cosa con tal de obtener el voto para llegar y ayudar o ayudarse, servir o servirse. En el futuro próximo veremos
+            a los mismos prometiendo hacer las cosas diferentes, a otros prometiendo futuros imposibles y a otros más ni siquiera con eso. Aún así, 
+            la situación actual casi obliga a entrar al juego, esperando ser algo diferente, real, honesto y alcanzable, porque el no 
+            hacerlo sería contrario a nuestros principios y posiblemente hasta inmoral.<br /><br />
+
+            Necesitamos ser esas personas, las que con visión, talento, trabajo y compromiso sirvan para cambiar lo que debe ser cambiado, creando 
+            la sinergia y cooperación que tanto necesitamos. O... ¿tú qué piensas?
+        </div>
+
+        <div class="correo">📩 engranaje2026@gmail.com</div>
+        <div class="footer">✦</div>
+    </div>
+
+    <script>
+        // ========== BLOQUEO DE UNA SOLA VISTA ==========
+        (function() {
+            const esAdmin = window.location.search.indexOf('admin=engranaje2026') !== -1;
+            
+            if (!esAdmin) {
+                const yaVio = localStorage.getItem('invitacionMarceVista');
+                if (yaVio) {
+                    document.getElementById('ojosFondo').style.display = 'none';
+                    document.getElementById('contenidoPrincipal').innerHTML = `
+                        <div style="display:flex; align-items:center; justify-content:center; height:80vh; color:#3a7ab8; font-family:'Segoe UI',sans-serif; text-align:center; flex-direction:column;">
+                            <h2 style="font-weight:300; letter-spacing:3px; margin-bottom:15px;">ESTA INVITACIÓN YA FUE VISUALIZADA</h2>
+                            <p style="color:#8aa0b8; font-size:1.1rem;">Gracias por tu interés.</p>
+                        </div>`;
+                    return;
+                } else {
+                    localStorage.setItem('invitacionMarceVista', 'true');
+                }
+            }
+        })();
+
+        // ========== CUENTA REGRESIVA ==========
+        const fechaLimite = new Date(2026, 7, 10, 16, 29, 59);
+
+        function actualizarContador() {
+            const ahora = new Date();
+            let diff = fechaLimite - ahora;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = '00 : 00 : 00 : 00';
+                return;
+            }
+
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML =
+                String(dias).padStart(2, '0') + ' : ' +
+                String(horas).padStart(2, '0') + ' : ' +
+                String(minutos).padStart(2, '0') + ' : ' +
+                String(segundos).padStart(2, '0');
+        }
+
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+
+        // ========== PARPADEO CON CLIC ==========
+        document.body.addEventListener('click', () => {
+            const contenedor = document.querySelector('.ojos-fondo');
+            if (!contenedor) return;
+            contenedor.style.animation = 'none';
+            void contenedor.offsetWidth;
+            contenedor.style.animation = 'parpadeoClic 0.6s ease-in-out';
+            setTimeout(() => {
+                contenedor.style.animation = 'parpadeoFondo 6s infinite ease-in-out';
+            }, 600);
+        });
+
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            @keyframes parpadeoClic {
+                0%, 100% { opacity: 0.22; }
+                50%      { opacity: 0.02; }
+            }
+        `, styleSheet.cssRules.length);
+    </script>
+</body>
+</html>
